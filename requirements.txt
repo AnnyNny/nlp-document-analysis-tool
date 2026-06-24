@@ -1,0 +1,14 @@
+﻿streamlit
+nltk
+spacy
+scikit-learn
+pandas
+numpy
+matplotlib
+plotly
+networkx
+pyvis
+python-pptx
+pymupdf
+jupyter
+ipykernel
