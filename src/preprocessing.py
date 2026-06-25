@@ -137,8 +137,7 @@ CUSTOM_STOPWORDS.update(
     }
 )
 
-# These words are too generic alone, but can still be meaningful inside bigrams:
-# for example "language model" should stay, but unigram "model" is too broad.
+# These words can be meaningful inside bigrams
 GENERIC_UNIGRAMS = {
     "model",
     "models",
@@ -166,8 +165,26 @@ GENERIC_UNIGRAMS = {
     "corpus",
 }
 
+CUSTOM_STOPWORDS.update(
+    {
+        "pre",
+        "low",
+        "case",
+        "simple",
+        "true",
+        "false",
+        "set",
+        "term",
+        "function",
+        "number",
+        "give",
+        "see",
+        "let",
+        "call",
+    }
+)
 
-# Short technical terms that we do NOT want to lose.
+# Short technical terms 
 KEEP_SHORT_TERMS = {
     "ai",
     "nlp",
@@ -183,8 +200,8 @@ KEEP_SHORT_TERMS = {
 }
 
 
-# Domain-specific phrases that should be preserved if they appear in text.
-# This is not manual cleaning of every file; it is one shared vocabulary for the whole corpus.
+# Domain-specific phrases that should be preserved if they appear in text
+# This is one shared vocabulary for the whole corpus
 DOMAIN_PHRASES = [
     "bag of words",
     "word embeddings",
@@ -284,8 +301,7 @@ def normalize_token(token) -> str | None:
     if raw in CUSTOM_STOPWORDS or lemma in CUSTOM_STOPWORDS:
         return None
 
-    # Keep nouns, proper nouns, adjectives, and some verbs.
-    # This avoids many random grammatical words.
+    # Keep nouns, proper nouns, adjectives and some verbs
     if token.pos_ not in {"NOUN", "PROPN", "ADJ", "VERB"}:
         return None
 
@@ -389,9 +405,7 @@ def analyze_document(document_id: str, text: str, nlp) -> pd.DataFrame:
         if term not in GENERIC_UNIGRAMS:
             term_positions[(term, "unigram")].append(index)
 
-    # 2. Add only curated domain phrases.
-    # We intentionally do NOT generate all adjacent bigrams here,
-    # because random slide bigrams create noisy and inflated results.
+    # 2. Add only curated domain phrases
     phrase_occurrences = extract_phrase_occurrences(cleaned_text)
     text_length_chars = max(len(cleaned_text), 1)
     document_length_terms = max(len(clean_terms) - 1, 1)

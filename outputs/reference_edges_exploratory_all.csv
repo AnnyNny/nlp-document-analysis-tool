@@ -1,0 +1,19 @@
+source_document,target_document,reference_score,cosine_similarity,weighted_overlap,shared_concepts,num_shared_concepts,interpretation
+L6,L13,0.279787,0.319811,0.159718,"relate, similar, sens, synonyms, relation, similarity, meaning, synonymy",8,source_concepts_propagate_to_target
+L5,L7,0.224914,0.264216,0.107008,"logistic, sigmoid, regression, network, sum, function, neural, binary",8,source_concepts_propagate_to_target
+L4,L15,0.223977,0.25178,0.140569,"emotion, subjective, affect, evaluation, love, jealous, sentiment, intensity",8,source_concepts_propagate_to_target
+L12,L14,0.183071,0.214761,0.088001,"participant, event, predicate, role, particular, argument, represent, frame",8,source_concepts_propagate_to_target
+L4,L5,0.165593,0.189686,0.093313,"weight, naive, positive, sum, bayes, negative, binary, awesome",8,source_concepts_propagate_to_target
+L10,L11,0.136158,0.158652,0.068674,"attention, lstm, self, encoder, self attention, left, context, learning",8,source_concepts_propagate_to_target
+L7,L10,0.134399,0.155728,0.070413,"language model, network, apply, hide, compute, linear, multi, single",8,source_concepts_propagate_to_target
+L6,L15,0.129722,0.152024,0.062815,"connotation, negative, semantic, valence, arousal, dominance, positive, pleasantness",8,source_concepts_propagate_to_target
+L0 Introduction,L7,0.126029,0.149211,0.056483,"language model, lecture, natural language processing, embedding, build, learn, processing, text classification",8,source_concepts_propagate_to_target
+L8,L11,0.118612,0.141129,0.05106,"tag, pos, tagging, token, linguistic, nivre, pro, flight",8,source_concepts_propagate_to_target
+L8,L14,0.115471,0.134551,0.05823,"labeling, verb, verbs, panini, bce, attribute, english, hand",8,source_concepts_propagate_to_target
+L1,L2,0.110003,0.127918,0.056259,"letter, substitution, string, character, want, natural language processing, space, type",8,source_concepts_propagate_to_target
+L2,L12,0.109439,0.124608,0.06393,"expression, role, thing, false, formal, process, match, involve",8,source_concepts_propagate_to_target
+L0 Introduction,L13,0.088594,0.10712,0.033015,"concept, information retrieval, retrieval, semantic, information, entity, similarity, meaning",8,source_concepts_propagate_to_target
+L1,L3,0.085691,0.099086,0.045507,"spell, correction, machine translation, recognition, want, wind, speech, goal",8,source_concepts_propagate_to_target
+L3,L5,0.08553,0.096316,0.05317,"probability, maximize, maximum, test, compute, parameter, probabilistic, high",8,source_concepts_propagate_to_target
+L7,L11,0.084091,0.096728,0.046178,"neural, linear, function, see, node, vector, learning, form",8,source_concepts_propagate_to_target
+L0 Introduction,L10,0.083722,0.102559,0.027212,"language model, embedding, word2vec, learn, generative",5,source_concepts_propagate_to_target

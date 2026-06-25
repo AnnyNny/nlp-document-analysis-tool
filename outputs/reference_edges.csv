@@ -1,0 +1,10 @@
+source_document,target_document,reference_score,cosine_similarity,weighted_overlap,shared_concepts,num_shared_concepts,interpretation
+L6,L13,0.272869,0.313148,0.152032,"relate, similarity, similar, sens, synonyms, relation, meaning, synonymy",8,source_concepts_propagate_to_target
+L5,L7,0.232229,0.271275,0.115092,"logistic, sigmoid, regression, network, sum, function, neural, binary",8,source_concepts_propagate_to_target
+L12,L14,0.181132,0.21211,0.0882,"participant, event, predicate, role, particular, argument, represent, frame",8,source_concepts_propagate_to_target
+L4,L5,0.177108,0.202098,0.102139,"weight, naive, positive, sum, bayes, negative, class, binary",8,source_concepts_propagate_to_target
+L10,L11,0.14268,0.16524,0.074999,"attention, lstm, self, encoder, self attention, left, context, xlnet",8,source_concepts_propagate_to_target
+L4,L15,0.136733,0.157219,0.075273,"emotion, subjective, affect, evaluation, love, jealous, intensity, sentiment",8,source_concepts_propagate_to_target
+L7,L10,0.135423,0.15703,0.070603,"language model, network, apply, hide, compute, linear, multi, deep",8,source_concepts_propagate_to_target
+L8,L11,0.114508,0.136499,0.048535,"tag, pos, tagging, token, linguistic, nivre, pro, function",8,source_concepts_propagate_to_target
+L8,L14,0.113637,0.13193,0.058759,"labeling, verb, verbs, panini, bce, attribute, english, hand",8,source_concepts_propagate_to_target

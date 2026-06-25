@@ -1,8 +1,37 @@
-﻿.venv/
+﻿# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 .ipynb_checkpoints/
-outputs/
-data/extracted/
-.DS_Store
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+
+# Conda / local env files
+.conda/
+.python-version
+
+# VSCode local settings
 .vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Raw course files should not be committed 
+data/raw/*
+!data/raw/.gitkeep
+
+# Extracted text can be regenerated
+data/extracted/*
+!data/extracted/.gitkeep
+
+
+!outputs/
+!outputs/*.csv
+!outputs/*.png

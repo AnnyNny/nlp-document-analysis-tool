@@ -1,0 +1,13 @@
+source_document,target_document,reference_score,cosine_similarity,weighted_overlap,shared_concepts,num_shared_concepts,interpretation
+L0 Introduction,L7,0.137751,0.162984,0.062052,"language model, lecture, natural language processing, embedding, build, learn, processing, text classification",8,agenda_topic_appears_in_later_lecture
+L0 Introduction,L13,0.082295,0.100003,0.029173,"concept, information retrieval, retrieval, semantic, information, entity, similarity, meaning",8,agenda_topic_appears_in_later_lecture
+L0 Introduction,L10,0.081702,0.100362,0.025721,"language model, embedding, word2vec, learn, generative, sentence",6,agenda_topic_appears_in_later_lecture
+L0 Introduction,L8,0.079889,0.095906,0.031837,"large language model, natural language processing, language model, named entity recognition, class, entity, name",7,agenda_topic_appears_in_later_lecture
+L0 Introduction,L14,0.079389,0.093856,0.035988,"lecture, introduction, dependency grammar, usage, grammar, semantic, general, tree",8,agenda_topic_appears_in_later_lecture
+L0 Introduction,L3,0.078894,0.096528,0.025991,"language model, introduction, probabilistic, general, recognition, sentence",6,agenda_topic_appears_in_later_lecture
+L0 Introduction,L11,0.072475,0.087985,0.025946,"information retrieval, dependency grammar, bag, statistical, chomsky, grammar, tree, dependency",8,agenda_topic_appears_in_later_lecture
+L0 Introduction,L6,0.071257,0.085947,0.027186,"operate, concept, embedding, text classification, semantic, similarity, meaning",7,agenda_topic_appears_in_later_lecture
+L0 Introduction,L2,0.067603,0.081834,0.024911,"natural language processing, natural, basic, processing, process, python, sentence",7,agenda_topic_appears_in_later_lecture
+L0 Introduction,L5,0.055252,0.064816,0.026562,"natural language processing, build, learn, text classification, probabilistic, class, generative, classification",8,agenda_topic_appears_in_later_lecture
+L0 Introduction,L9,0.05059,0.06023,0.02167,"lab, introduction, statistical, semantic, information, sentence",6,agenda_topic_appears_in_later_lecture
+L0 Introduction,L1,0.048422,0.054092,0.031411,"natural language processing, processing, natural, recognition, information, entity, name, meaning",8,agenda_topic_appears_in_later_lecture
