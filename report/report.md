@@ -32,7 +32,8 @@ For this reason, the final pipeline uses single lemmatized terms plus selected m
 
 ## 5. Graph modes
 
-The final app contains three graphs: presentation graph, exploratory graph and agenda graph. The presentation graph is showing a clean reference graph for report. Exploratory graph is a denser version for analysis and the agenda graph is showing how topics from the `L0 Introduction` document appear in later documents. `L0 Introduction` is treated separately because it is an agenda document, not a normal content lecture. If included in the same graph as all other lectures, it tends to connect to too many nodes.
+The final app contains three graphs: presentation graph, exploratory graph and agenda graph. The **presentation graph** is a pruned version with only the strongest edges. The **exploratory graph** keeps more edges and is useful for inspecting weaker conceptual relations. The **agenda graph** treats `L0 Introduction` separately, because this document mentions all the course topics and connects to every lecture.
+
 
 ## 6. Project pipeline
 
@@ -73,11 +74,10 @@ concept_weight = extended_relevance_score * idf * phrase_boost
 
 extended_relevance_score shows how important the term is inside one document. idf reduces the weight of terms that appear in too many documents. phrase_boost gives a small additional weight to domain phrases, such as language model or word embedding.
 
-Then the code compares documents using their weighted concept vectors:
 
 similarity_matrix = cosine_similarity(document_term_matrix)
 
-If a later document is sufficiently similar to an earlier document and they share important concepts, the system creates a directed edge:
+Cosine similarity is used to compare documents represented as weighted term vectors. If two documents have similar important terms, their cosine similarity is higher. This helps decide if a later lecture reuses concepts from an earlier lecture. If a later document is sufficiently similar to an earlier document and they share important concepts, the system creates a directed edge:
 
 source_document -> target_document
 
@@ -122,8 +122,10 @@ The resulting project can process a corpus of lecture documents, compute interpr
 
 ## 9. Limitations
 
-1. Frequency does not guarantee conceptual importance.
-2. Early occurrence does not always mean centrality.
-3. Lecture slides are semi-structured and contain diagrams, fragments, examplesand repeated labels.
-5. Some noisy terms may remain because the corpus is extracted from slides.
+1. Manually selected domain phrases are not generalizable for different corpora. For another domain the phrase list would need to be adapted. 
+2. The text is extracted from the slides that contain repeating titles, diagrams and fragments of examples
+3. The relevance score is an heuristic, it does not necessarily mean that frequent words is conceptually important, it can be a repeated pattern in the slides. 
+4. The reference graph is based on shared weighted concepts and cosine similarity. So the edge between two documents does not represent a direct citatiotion. It only supposes a possible conceptual resemblance. 
+
+Finally, the project does not use deep neural networks like transformers or sentence embeddings. It makes the system more interpreteable but limits the ablity to find implicit semantic relations between documents. 
 
