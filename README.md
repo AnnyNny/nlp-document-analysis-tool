@@ -8,4 +8,4 @@ The Streamlit app in cloud is available here:
 
 The app uses precomputed outputs stored in the `outputs/` folder, so it can be opened directly without rerunning the full NLP pipeline.
 
-The final report is stored in `reports/` folder
+The final report is stored in `report/` folder
