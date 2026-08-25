@@ -9,14 +9,14 @@ RAW_DIR = Path("data/raw")
 EXTRACTED_DIR = Path("data/extracted")
 
 
-def normalize_text(text: str) -> str:
+def normalize_text(text):
     text = text.replace("\x0b", "\n")
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
 
 
-def extract_text_from_pptx(pptx_path: Path) -> str:
+def extract_text_from_pptx(pptx_path):
     presentation = Presentation(pptx_path)
     document_parts = []
 
@@ -50,7 +50,7 @@ def extract_text_from_pptx(pptx_path: Path) -> str:
     return "\n\n".join(document_parts)
 
 
-def extract_text_from_pdf(pdf_path: Path) -> str:
+def extract_text_from_pdf(pdf_path):
     document_parts = []
 
     with fitz.open(pdf_path) as pdf_document:
@@ -62,11 +62,11 @@ def extract_text_from_pdf(pdf_path: Path) -> str:
     return "\n\n".join(document_parts)
 
 
-def extract_text_from_txt(txt_path: Path) -> str:
+def extract_text_from_txt(txt_path):
     return txt_path.read_text(encoding="utf-8", errors="ignore")
 
 
-def extract_text_from_file(file_path: Path) -> str:
+def extract_text_from_file(file_path):
     suffix = file_path.suffix.lower()
 
     if suffix == ".pptx":
@@ -81,7 +81,7 @@ def extract_text_from_file(file_path: Path) -> str:
     raise ValueError(f"Unsupported file type: {file_path.suffix}")
 
 
-def extract_all_documents(raw_dir: Path = RAW_DIR, output_dir: Path = EXTRACTED_DIR) -> None:
+def extract_all_documents(raw_dir=RAW_DIR, output_dir=EXTRACTED_DIR):
     output_dir.mkdir(parents=True, exist_ok=True)
 
     supported_files = sorted(
