@@ -32,7 +32,7 @@ st.set_page_config(
 )
 
 
-def natural_document_sort_key(document_id: str) -> tuple[int, str]:
+def natural_document_sort_key(document_id):
     match = re.search(r"L(\d+)", str(document_id), flags=re.IGNORECASE)
 
     if match:
@@ -41,7 +41,7 @@ def natural_document_sort_key(document_id: str) -> tuple[int, str]:
     return 9999, str(document_id).lower()
 
 
-def load_csv(path: Path, required: bool = True) -> pd.DataFrame | None:
+def load_csv(path, required=True):
     if not path.exists():
         if required:
             st.error(f"Missing file: `{path}`")
@@ -51,13 +51,13 @@ def load_csv(path: Path, required: bool = True) -> pd.DataFrame | None:
     return pd.read_csv(path)
 
 
-def file_status(path: Path) -> str:
+def file_status(path):
     if path.exists():
         return "available"
     return "missing"
 
 
-def readable_term_type(series: pd.Series) -> pd.Series:
+def readable_term_type(series):
     return series.replace(
         {
             "unigram": "single term",
@@ -66,7 +66,7 @@ def readable_term_type(series: pd.Series) -> pd.Series:
     )
 
 
-def show_download_button(df: pd.DataFrame, filename: str, label: str) -> None:
+def show_download_button(df, filename, label):
     csv_bytes = df.to_csv(index=False).encode("utf-8")
 
     st.download_button(
@@ -77,7 +77,7 @@ def show_download_button(df: pd.DataFrame, filename: str, label: str) -> None:
     )
 
 
-def get_existing_columns(df: pd.DataFrame, columns: list[str]) -> list[str]:
+def get_existing_columns(df, columns):
     return [column for column in columns if column in df.columns]
 
 

@@ -261,7 +261,7 @@ def load_spacy_model():
         ) from error
 
 
-def clean_raw_text(text: str) -> str:
+def clean_raw_text(text):
     text = re.sub(r"---\s*(page|slide)\s*\d+\s*---", " ", text, flags=re.IGNORECASE)
     text = text.replace("●", " ")
     text = text.replace("○", " ")
@@ -273,7 +273,7 @@ def clean_raw_text(text: str) -> str:
     return text.strip()
 
 
-def normalize_token(token) -> str | None:
+def normalize_token(token):
     raw = token.text.strip().lower()
     lemma = token.lemma_.strip().lower()
 
@@ -308,7 +308,7 @@ def normalize_token(token) -> str | None:
     return lemma
 
 
-def extract_phrase_occurrences(text: str) -> list[tuple[str, int]]:
+def extract_phrase_occurrences(text):
     lowered = text.lower()
     occurrences = []
 
@@ -330,7 +330,7 @@ def extract_phrase_occurrences(text: str) -> list[tuple[str, int]]:
     return occurrences
 
 
-def make_bigrams(clean_terms: list[str]) -> list[tuple[str, int]]:
+def make_bigrams(clean_terms):
     bigrams = []
 
     for index in range(len(clean_terms) - 1):
@@ -349,14 +349,14 @@ def make_bigrams(clean_terms: list[str]) -> list[tuple[str, int]]:
     return bigrams
 
 
-def classify_by_percentiles(scores: pd.Series) -> pd.Series:
+def classify_by_percentiles(scores):
     if scores.empty:
         return scores
 
     low_threshold = scores.quantile(0.10)
     high_threshold = scores.quantile(0.90)
 
-    def classify(score: float) -> str:
+    def classify(score):
         if score >= high_threshold:
             return "top"
         if score <= low_threshold:
@@ -366,7 +366,7 @@ def classify_by_percentiles(scores: pd.Series) -> pd.Series:
     return scores.apply(classify)
 
 
-def analyze_document(document_id: str, text: str, nlp) -> pd.DataFrame:
+def analyze_document(document_id, text, nlp):
     cleaned_text = clean_raw_text(text)
     doc = nlp(cleaned_text)
 
@@ -482,9 +482,9 @@ def analyze_document(document_id: str, text: str, nlp) -> pd.DataFrame:
 
 
 def analyze_all_documents(
-    extracted_dir: Path = EXTRACTED_DIR,
-    outputs_dir: Path = OUTPUTS_DIR,
-) -> None:
+    extracted_dir=EXTRACTED_DIR,
+    outputs_dir=OUTPUTS_DIR,
+):
     outputs_dir.mkdir(parents=True, exist_ok=True)
 
     text_files = sorted(extracted_dir.glob("*.txt"))

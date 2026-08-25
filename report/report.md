@@ -3,7 +3,7 @@
 ## 1. Project choice
 
 The project follows the research-oriented assignment 2: implementing a graphical tool for document processing. It also includes an extension taken from assignment 3 and relates documents to each other by using a reference graph. 
-This project covers all the following assignment 2 subgoals:
+This project has the following subgoals:
 - Eliminate stopwords; 
 - Lemmatize terms; 
 - Compute frequencies; 
@@ -19,13 +19,13 @@ As a corpus, I chose all the lecture slides of the course 'Natural Language Proc
 
 The project analyzes `.pptx`, `.pdf`, and `.txt` files.
 
-Initially, the first extractor was too restrictive since it produced almost empty text files for the PowerPoint lectures. So it was simplified to directly read text from shapes, tables and slide objects. After this change the extracted lecture files have realistic word counts.
+Initially, the first extractor produced almost empty text files for the PowerPoint lectures. So it was simplified to directly read text from shapes, tables and slide objects. After this change the extracted lecture files have realistic word counts.
 
 This step was important because the quality of the whole analysis depends on the quality of the extracted text.
 
 ## 4. Term representation
 
-The system uses two term types: a 'single term' and a 'domain phrase'. Single trm is a lemmatized unigram and domain phrase is a list of manually selected phrases, based on the course content (for example, 'language model' or 'word embedding'). I also tried the extraction of bigrams but did not keep it in the final version, because it produced noisy examples of bigrams and the random adjacency would not be meaningful for representing the concepts.         | 
+The system uses two term types: a 'single term' and a 'domain phrase'. Single trm is a lemmatized unigram and domain phrase is a list of manually selected phrases, based on the course content (for example, 'language model' or 'word embedding'). I also tried the extraction of bigrams but did not keep it in the final version, because it produced noisy examples of bigrams not meaningful for representing the concepts.         | 
 
 For this reason, the final pipeline uses single lemmatized terms plus selected multi-word keyphrases.
 
@@ -55,7 +55,7 @@ frequency_score = frequency / max_frequency_in_document
 
 Distance measurement
 
-For every term, the code stores all positions where this term appears. Then it computes the first occurrence and the last occurrence of the term. These positions are normalized with respect to the document length, so they are represented on a scale from 0 to 1. A value close to 0 means that the term appears near the beginning of the document, while a value close to 1 means that it appears near the end. From these values, the system computes `distance_from_start` and `distance_from_end`. 
+For every term, the code stores all positions where this term appears. Then it computes the first occurrence and the last occurrence of the term. These positions are normalized with respect to the document length, so they are represented on a scale from 0 to 1. A value close to 0 means the term appears near the beginning of the document, while a value close to 1 means that it appears near the end. From these values, the system computes `distance_from_start` and `distance_from_end`. 
 
 earliness_score = 1 - first_position
 persistence_score = last_position - first_position
@@ -68,11 +68,11 @@ relevance_score = 0.5 * frequency_score + 0.5 * earliness_score
 
 Reference graph
 
-Each document is represented by its most relevant concepts. For each concept, the code computes a weight:
+Each document is represented by its most relevant concepts. For each concept the code computes a weight:
 
 concept_weight = extended_relevance_score * idf * phrase_boost
 
-extended_relevance_score shows how important the term is inside one document. idf reduces the weight of terms that appear in too many documents. phrase_boost gives a small additional weight to domain phrases, such as language model or word embedding.
+extended_relevance_score shows how important the term is inside one document. idf reduces the weight of terms that appear in too many documents. phrase_boost gives a small additional weight to domain phrases, such as 'language model' or 'word embedding'.
 
 
 similarity_matrix = cosine_similarity(document_term_matrix)
@@ -101,7 +101,7 @@ Example output columns are:
     "earliness_score",
     "persistence_score",
     "relevance_score",
-    "extended_relevance_score"
+    "extended_relevance_score",
 ]
 ```
 

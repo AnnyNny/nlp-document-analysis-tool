@@ -1,6 +1,5 @@
 from pathlib import Path
 import re
-from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -60,7 +59,7 @@ MIN_DOCUMENT_FREQUENCY = 2
 MAX_DOCUMENT_FREQUENCY_FRACTION = 0.75
 
 
-def natural_document_sort_key(document_id: str) -> tuple[int, str]:
+def natural_document_sort_key(document_id):
     match = re.search(r"L(\d+)", document_id, flags=re.IGNORECASE)
 
     if match:
@@ -69,7 +68,7 @@ def natural_document_sort_key(document_id: str) -> tuple[int, str]:
     return 9999, document_id.lower()
 
 
-def load_term_relevance(path: Path = TERM_RELEVANCE_PATH) -> pd.DataFrame:
+def load_term_relevance(path=TERM_RELEVANCE_PATH):
     if not path.exists():
         raise FileNotFoundError(
             f"Cannot find {path}. Run preprocessing first:\n"
@@ -113,10 +112,10 @@ def load_term_relevance(path: Path = TERM_RELEVANCE_PATH) -> pd.DataFrame:
 
 
 def compute_concept_weights(
-    df: pd.DataFrame,
-    include_introduction: bool,
-    max_document_frequency_fraction: float = MAX_DOCUMENT_FREQUENCY_FRACTION,
-) -> pd.DataFrame:
+    df,
+    include_introduction,
+    max_document_frequency_fraction=MAX_DOCUMENT_FREQUENCY_FRACTION,
+):
     working_df = df.copy()
 
     if not include_introduction:
@@ -191,9 +190,9 @@ def compute_concept_weights(
 
 
 def select_top_terms(
-    concept_df: pd.DataFrame,
-    top_n: int,
-) -> pd.DataFrame:
+    concept_df,
+    top_n,
+):
     top_terms = (
         concept_df.sort_values(
             by=[
@@ -212,7 +211,7 @@ def select_top_terms(
     return top_terms
 
 
-def build_document_term_matrix(top_terms: pd.DataFrame) -> pd.DataFrame:
+def build_document_term_matrix(top_terms):
     matrix = top_terms.pivot_table(
         index="document_id",
         columns="term",
@@ -227,7 +226,7 @@ def build_document_term_matrix(top_terms: pd.DataFrame) -> pd.DataFrame:
     return matrix
 
 
-def compute_similarity_matrix(document_term_matrix: pd.DataFrame) -> pd.DataFrame:
+def compute_similarity_matrix(document_term_matrix):
     similarity_values = cosine_similarity(document_term_matrix.values)
 
     similarity_df = pd.DataFrame(
@@ -240,9 +239,9 @@ def compute_similarity_matrix(document_term_matrix: pd.DataFrame) -> pd.DataFram
 
 
 def weighted_jaccard_for_documents(
-    source_vector: pd.Series,
-    target_vector: pd.Series,
-) -> float:
+    source_vector,
+    target_vector,
+):
     source_values = source_vector.values.astype(float)
     target_values = target_vector.values.astype(float)
 
@@ -256,10 +255,10 @@ def weighted_jaccard_for_documents(
 
 
 def get_shared_concepts(
-    source_vector: pd.Series,
-    target_vector: pd.Series,
-    max_items: int = MAX_SHARED_CONCEPTS_DISPLAY,
-) -> list[str]:
+    source_vector,
+    target_vector,
+    max_items=MAX_SHARED_CONCEPTS_DISPLAY,
+):
     shared_terms = []
 
     for term in source_vector.index:
@@ -276,14 +275,14 @@ def get_shared_concepts(
 
 
 def build_all_reference_edges(
-    document_term_matrix: pd.DataFrame,
-    similarity_df: pd.DataFrame,
-    min_edge_score: float,
-    min_shared_concepts: int,
-    reverse_direction: bool = False,
-) -> pd.DataFrame:
+    document_term_matrix,
+    similarity_df,
+    min_edge_score,
+    min_shared_concepts,
+    reverse_direction=False,
+):
     documents = list(document_term_matrix.index)
-    rows: list[dict[str, Any]] = []
+    rows = []
 
     for source_index, source_document in enumerate(documents):
         for target_index, target_document in enumerate(documents):
@@ -351,10 +350,10 @@ def build_all_reference_edges(
 
 
 def select_edges_for_graph(
-    edges_df: pd.DataFrame,
-    max_edges_per_source: int,
-    max_total_edges: int,
-) -> pd.DataFrame:
+    edges_df,
+    max_edges_per_source,
+    max_total_edges,
+):
     if edges_df.empty:
         return edges_df
 
@@ -378,11 +377,11 @@ def select_edges_for_graph(
 
 
 def build_agenda_edges(
-    document_term_matrix: pd.DataFrame,
-    similarity_df: pd.DataFrame,
-    min_edge_score: float,
-    max_total_edges: int,
-) -> pd.DataFrame:
+    document_term_matrix,
+    similarity_df,
+    min_edge_score,
+    max_total_edges,
+):
     if INTRO_DOCUMENT_ID not in document_term_matrix.index:
         return pd.DataFrame(
             columns=[
@@ -456,7 +455,7 @@ def build_agenda_edges(
     return agenda_edges
 
 
-def save_similarity_table(similarity_df: pd.DataFrame, path: Path) -> None:
+def save_similarity_table(similarity_df, path):
     similarity_table = similarity_df.reset_index().rename(
         columns={"index": "document_id"}
     )
@@ -465,10 +464,10 @@ def save_similarity_table(similarity_df: pd.DataFrame, path: Path) -> None:
 
 
 def draw_reference_graph(
-    edges_df: pd.DataFrame,
-    output_path: Path,
-    title: str,
-) -> None:
+    edges_df,
+    output_path,
+    title,
+):
     if edges_df.empty:
         print(f"No edges to draw for {output_path}.")
         return
@@ -545,7 +544,7 @@ def draw_reference_graph(
     plt.close()
 
 
-def print_edges(title: str, edges_df: pd.DataFrame, top_n: int = 12) -> None:
+def print_edges(title, edges_df, top_n=12):
     print()
     print(title)
 
@@ -565,19 +564,19 @@ def print_edges(title: str, edges_df: pd.DataFrame, top_n: int = 12) -> None:
 
 
 def run_content_graph(
-    term_relevance_df: pd.DataFrame,
-    include_introduction: bool,
-    top_terms_per_document: int,
-    min_edge_score: float,
-    min_shared_concepts: int,
-    max_edges_per_source: int,
-    max_total_edges: int,
-    all_edges_path: Path,
-    selected_edges_path: Path,
-    graph_path: Path,
-    similarity_path: Path | None,
-    graph_title: str,
-) -> pd.DataFrame:
+    term_relevance_df,
+    include_introduction,
+    top_terms_per_document,
+    min_edge_score,
+    min_shared_concepts,
+    max_edges_per_source,
+    max_total_edges,
+    all_edges_path,
+    selected_edges_path,
+    graph_path,
+    similarity_path,
+    graph_title,
+):
     concept_df = compute_concept_weights(
         term_relevance_df,
         include_introduction=include_introduction,
@@ -621,7 +620,7 @@ def run_content_graph(
     return selected_edges
 
 
-def run_agenda_graph(term_relevance_df: pd.DataFrame) -> pd.DataFrame:
+def run_agenda_graph(term_relevance_df):
     concept_df = compute_concept_weights(
         term_relevance_df,
         include_introduction=True,
@@ -654,7 +653,7 @@ def run_agenda_graph(term_relevance_df: pd.DataFrame) -> pd.DataFrame:
     return agenda_edges
 
 
-def main() -> None:
+def main():
     OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
     print("Loading term relevance table...")
