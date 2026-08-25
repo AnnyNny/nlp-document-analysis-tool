@@ -81,7 +81,7 @@ Cosine similarity is used to compare documents represented as weighted term vect
 
 source_document -> target_document
 
-## Results
+## 7. Results
 
 The final project produces both tabular results and graphs.
 
@@ -120,7 +120,7 @@ The Streamlit interface allows the user to select a document, view the most rele
 The resulting project can process a corpus of lecture documents, compute interpretable relevance scores and build an exploratory conceptual graph of the course.
 
 
-## 9. Limitations
+## 8. Limitations
 
 1. Manually selected domain phrases are not generalizable for different corpora. For another domain the phrase list would need to be adapted. 
 2. The text is extracted from the slides that contain repeating titles, diagrams and fragments of examples
